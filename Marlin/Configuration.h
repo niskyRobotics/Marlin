@@ -40,10 +40,10 @@ Here are some standard links for getting your machine calibrated:
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_VERSION "1.0.3 dev"
+#define STRING_VERSION "1.1 NiskyBots"
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
-#define STRING_SPLASH_LINE1 "v" STRING_VERSION // will be shown during bootup in line 1
+#define STRING_CONFIG_H_AUTHOR "(hexafraction)" // Who made the changes.
+#define STRING_SPLASH_LINE1 "NiskyBots Marlin cfg by hexafraction" // will be shown during bootup in line 1
 //#define STRING_SPLASH_LINE2 STRING_VERSION_CONFIG_H // will be shown during bootup in line2
 
 // @section machine
@@ -63,8 +63,10 @@ Here are some standard links for getting your machine calibrated:
 
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
+// TODO TODO TODO UPDATE THIS!
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_13_EFB
+  #define MOTHERBOARD BOARD_RAMPS_13_EFB 
+  #error "double-check selected board!"
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -139,13 +141,16 @@ Here are some standard links for getting your machine calibrated:
 //     #define DUMMY_THERMISTOR_998_VALUE 25
 //     #define DUMMY_THERMISTOR_999_VALUE 100
 // :{ '0': "Not used", '4': "10k !! do not use for a hotend. Bad resolution at high temp. !!", '1': "100k / 4.7k - EPCOS", '51': "100k / 1k - EPCOS", '6': "100k / 4.7k EPCOS - Not as accurate as Table 1", '5': "100K / 4.7k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '7': "100k / 4.7k Honeywell 135-104LAG-J01", '71': "100k / 4.7k Honeywell 135-104LAF-J01", '8': "100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT", '9': "100k / 4.7k GE Sensing AL03006-58.2K-97-G1", '10': "100k / 4.7k RS 198-961", '11': "100k / 4.7k beta 3950 1%", '12': "100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT (calibrated for Makibox hot bed)", '13': "100k Hisens 3950  1% up to 300°C for hotend 'Simple ONE ' & hotend 'All In ONE'", '60': "100k Maker's Tool Works Kapton Bed Thermistor beta=3950", '55': "100k / 1k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '2': "200k / 4.7k - ATC Semitec 204GT-2", '52': "200k / 1k - ATC Semitec 204GT-2", '-2': "Thermocouple + MAX6675 (only for sensor 0)", '-1': "Thermocouple + AD595", '3': "Mendel-parts / 4.7k", '1047': "Pt1000 / 4.7k", '1010': "Pt1000 / 1k (non standard)", '20': "PT100 (Ultimainboard V2.x)", '147': "Pt100 / 4.7k", '110': "Pt100 / 1k (non-standard)", '998': "Dummy 1", '999': "Dummy 2" }
+
+
+// double-checked. Refer to i3pro for bed resistor param
 #define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_BED 0
 
-// This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
+// This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is too high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
@@ -166,10 +171,11 @@ Here are some standard links for getting your machine calibrated:
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
-#define HEATER_2_MAXTEMP 275
-#define HEATER_3_MAXTEMP 275
+// dropped to protect the UBIS extruder
+#define HEATER_0_MAXTEMP 250
+#define HEATER_1_MAXTEMP 250
+#define HEATER_2_MAXTEMP 250
+#define HEATER_3_MAXTEMP 250
 #define BED_MAXTEMP 150
 
 // If your bed has low resistance e.g. .6 ohm and throws the fuse you can duty cycle it to reduce the
@@ -318,6 +324,16 @@ Here are some standard links for getting your machine calibrated:
   // #define ENDSTOPPULLUP_ZMIN
   // #define ENDSTOPPULLUP_ZPROBE
 #endif
+// TODO DOUBLE CHECK IF WE NEED PULLUPS
+#error "check this"
+#ifdef ENDSTOPPULLUPS
+  #define ENDSTOPPULLUP_XMAX
+  #define ENDSTOPPULLUP_YMAX
+  #define ENDSTOPPULLUP_ZMAX
+  #define ENDSTOPPULLUP_XMIN
+  #define ENDSTOPPULLUP_YMIN
+  #define ENDSTOPPULLUP_ZMIN
+#endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -327,6 +343,8 @@ const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+
+#error "check this"
 //#define DISABLE_MAX_ENDSTOPS
 //#define DISABLE_MIN_ENDSTOPS
 
@@ -375,8 +393,12 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 // ENDSTOP SETTINGS:
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
+
 #define X_HOME_DIR -1
-#define Y_HOME_DIR -1
+
+//warn check me!
+#define Y_HOME_DIR 1
+
 #define Z_HOME_DIR -1
 
 #define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
@@ -388,9 +410,9 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 200
-#define Y_MAX_POS 200
-#define Z_MAX_POS 200
+#define X_MAX_POS 154
+#define Y_MAX_POS 154
+#define Z_MAX_POS 154
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -432,7 +454,7 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 
 // @section bedlevel
 
-//#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
+#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
 #define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 
 #ifdef ENABLE_AUTO_BED_LEVELING
@@ -450,14 +472,14 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 
   // Enable this to sample the bed in a grid (least squares solution)
   // Note: this feature generates 10KB extra code size
-  #define AUTO_BED_LEVELING_GRID
-
+  //#define AUTO_BED_LEVELING_GRID	
+	#warn "Re-enable if sufficient space"
   #ifdef AUTO_BED_LEVELING_GRID
 
     #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
+    #define RIGHT_PROBE_BED_POSITION 140
     #define FRONT_PROBE_BED_POSITION 20
-    #define BACK_PROBE_BED_POSITION 170
+    #define BACK_PROBE_BED_POSITION 140
 
     #define MIN_PROBE_EDGE 10 // The probe square sides can be no smaller than this
 
@@ -470,19 +492,19 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
       // Arbitrary points to probe. A simple cross-product
       // is used to estimate the plane of the bed.
       #define ABL_PROBE_PT_1_X 15
-      #define ABL_PROBE_PT_1_Y 180
+      #define ABL_PROBE_PT_1_Y 135
       #define ABL_PROBE_PT_2_X 15
-      #define ABL_PROBE_PT_2_Y 20
-      #define ABL_PROBE_PT_3_X 170
-      #define ABL_PROBE_PT_3_Y 20
+      #define ABL_PROBE_PT_2_Y 15
+      #define ABL_PROBE_PT_3_X 135
+      #define ABL_PROBE_PT_3_Y 15
 
   #endif // AUTO_BED_LEVELING_GRID
 
   // Offsets to the probe relative to the extruder tip (Hotend - Probe)
   // X and Y offsets must be integers
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25     // Probe on: -left  +right
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29     // Probe on: -front +behind
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35  // -below (always!)
+  #define X_PROBE_OFFSET_FROM_EXTRUDER +5     // Probe on: -left  +right
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -0     // Probe on: -front +behind
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -4  // -below (always!)
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
@@ -565,9 +587,9 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 25}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {63.36, 63.36, 2272.72, 590}  // default steps per unit for Ultimaker
+#define DEFAULT_MAX_FEEDRATE          {100, 100, 2, 14}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,300,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // E acceleration in mm/s^2 for retracts
