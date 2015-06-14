@@ -66,7 +66,7 @@ Here are some standard links for getting your machine calibrated:
 // TODO TODO TODO UPDATE THIS!
 #ifndef MOTHERBOARD
   #define MOTHERBOARD BOARD_RAMPS_13_EFB 
-  #error "double-check selected board!"
+ // #error "double-check selected board!"
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -325,7 +325,7 @@ Here are some standard links for getting your machine calibrated:
   // #define ENDSTOPPULLUP_ZPROBE
 #endif
 // TODO DOUBLE CHECK IF WE NEED PULLUPS
-#error "check this"
+#warning "check this"
 #ifdef ENDSTOPPULLUPS
   #define ENDSTOPPULLUP_XMAX
   #define ENDSTOPPULLUP_YMAX
@@ -344,7 +344,7 @@ const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 
-#error "check this"
+//#error "check this"
 //#define DISABLE_MAX_ENDSTOPS
 //#define DISABLE_MIN_ENDSTOPS
 
@@ -472,8 +472,8 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 
   // Enable this to sample the bed in a grid (least squares solution)
   // Note: this feature generates 10KB extra code size
-  //#define AUTO_BED_LEVELING_GRID	
-	#warn "Re-enable if sufficient space"
+  #define AUTO_BED_LEVELING_GRID	
+	//#warn "Re-enable if sufficient space"
   #ifdef AUTO_BED_LEVELING_GRID
 
     #define LEFT_PROBE_BED_POSITION 15

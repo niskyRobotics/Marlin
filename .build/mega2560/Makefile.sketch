@@ -1,0 +1,19 @@
+
+
+
+
+
+.build/mega2560/src/Marlin.cpp : src/Marlin.pde
+	@mkdir -p .build/mega2560/src
+	@echo [93msrc/Marlin.pde[0m
+	@/usr/local/bin/ino preproc  -o $@ $^
+
+.build/mega2560/src/Marlin.cpp : src/Marlin.ino
+	@mkdir -p .build/mega2560/src
+	@echo [93msrc/Marlin.ino[0m
+	@/usr/local/bin/ino preproc  -o $@ $^
+
+
+all : .build/mega2560/src/Marlin.cpp .build/mega2560/src/Marlin.cpp
+	@true
+
