@@ -381,6 +381,7 @@ const bool Z_PROBE_ENDSTOP_INVERTING = false; // set to true to invert the logic
 #define INVERT_Z_DIR false*/
 
 //FROM https://github.com/Printrbot/Marlin/blob/bedlevel_metal-simple/Marlin/Configuration.h
+// double check
 #define INVERT_X_DIR true    // for Mendel set to false, for Orca set to true
 #define INVERT_Y_DIR true    // for Mendel set to true, for Orca set to false
 #define INVERT_Z_DIR true    // for Mendel set to false, for Orca set to true
